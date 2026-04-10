@@ -1,0 +1,794 @@
+n<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Morning Starr Morgan</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><defs><linearGradient id='g' x1='0%' y1='0%' x2='100%' y2='100%'><stop offset='0%' style='stop-color:%2300fff7'/><stop offset='100%' style='stop-color:%23ffd700'/></stop></linearGradient></defs><rect width='100' height='100' rx='20' fill='%230a0a0f'/><text x='50' y='70' font-family='Arial Black' font-size='60' font-weight='900' text-anchor='middle' fill='url(%23g)'>M</text><circle cx='85' cy='15' r='8' fill='%23ff2a6d'/></svg>">
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Space+Grotesk:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --clr-bg:#08080c;
+  --clr-bg-card:#0f111a;
+  --clr-accent:#00fff7;
+  --clr-gold:#ffd700;
+  --clr-rose:#ff2a6d;
+  --clr-text:#e0e0e0;
+  --radius:16px;
+  --duration:.4s;
+  --font-display:'Orbitron',sans-serif;
+  --font-body:'Space Grotesk',sans-serif;
+  --font-quote:'Playfair Display',serif;
+}
+
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  font-family:var(--font-body);
+  background:var(--clr-bg);
+  color:var(--clr-text);
+  min-height:100vh;
+  overflow-x:hidden;
+  line-height:1.6;
+}
+
+/* Animated Background */
+.bg-gradient{
+  position:fixed;
+  inset:0;
+  background:radial-gradient(ellipse at 20% 20%,rgba(0,255,247,0.08) 0%,transparent 50%),
+             radial-gradient(ellipse at 80% 80%,rgba(255,42,109,0.05) 0%,transparent 50%);
+  z-index:-2;
+  animation:pulseBg 8s ease-in-out infinite alternate;
+}
+@keyframes pulseBg{
+  from{opacity:0.5;transform:scale(1)}
+  to{opacity:1;transform:scale(1.1)}
+}
+
+.particles{
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  z-index:-1;
+  overflow:hidden;
+}
+.particle{
+  position:absolute;
+  width:2px;
+  height:2px;
+  background:var(--clr-accent);
+  border-radius:50%;
+  opacity:0.3;
+  animation:float 20s infinite linear;
+}
+@keyframes float{
+  0%{transform:translateY(100vh) translateX(0);opacity:0}
+  10%{opacity:0.5}
+  90%{opacity:0.5}
+  100%{transform:translateY(-100vh) translateX(100px);opacity:0}
+}
+
+/* Intro Screen */
+#introScreen{
+  position:fixed;
+  inset:0;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  gap:3rem;
+  z-index:9999;
+  background:linear-gradient(135deg,var(--clr-bg) 0%,#0f172a 100%);
+  padding:2rem;
+}
+.logo-big{
+  width:120px;
+  height:120px;
+  background:linear-gradient(135deg,var(--clr-accent),var(--clr-gold));
+  border-radius:30px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-family:var(--font-display);
+  font-size:70px;
+  font-weight:900;
+  color:var(--clr-bg);
+  box-shadow:0 20px 60px rgba(0,255,247,0.4),0 0 100px rgba(255,215,0,0.2);
+  animation:floatLogo 3s ease-in-out infinite;
+  position:relative;
+}
+.logo-big::after{
+  content:'';
+  position:absolute;
+  inset:-5px;
+  border-radius:35px;
+  background:linear-gradient(135deg,var(--clr-accent),var(--clr-rose));
+  z-index:-1;
+  opacity:0.5;
+  filter:blur(20px);
+}
+@keyframes floatLogo{
+  0%,100%{transform:translateY(0)}
+  50%{transform:translateY(-10px)}
+}
+#animatedTitle{
+  font-family:var(--font-display);
+  font-size:clamp(2rem,6vw,4rem);
+  background:linear-gradient(90deg,var(--clr-accent),var(--clr-gold),var(--clr-accent));
+  background-size:200% auto;
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  animation:shimmer 3s linear infinite;
+  letter-spacing:4px;
+  text-transform:uppercase;
+}
+@keyframes shimmer{to{background-position:200% center}}
+
+.language-selector{
+  display:flex;
+  flex-direction:column;
+  gap:1rem;
+  align-items:center;
+}
+#languageSelect{
+  padding:1rem 2.5rem;
+  font-size:1.1rem;
+  border:2px solid rgba(0,255,247,0.3);
+  border-radius:50px;
+  background:rgba(0,255,247,0.05);
+  color:var(--clr-accent);
+  font-family:var(--font-body);
+  cursor:pointer;
+  backdrop-filter:blur(10px);
+  transition:all var(--duration);
+  min-width:250px;
+}
+#languageSelect:hover,#languageSelect:focus{
+  border-color:var(--clr-accent);
+  box-shadow:0 0 30px rgba(0,255,247,0.3);
+  outline:none;
+}
+#enterButton{
+  padding:1.2rem 4rem;
+  font-size:1.2rem;
+  font-weight:700;
+  font-family:var(--font-display);
+  text-transform:uppercase;
+  letter-spacing:3px;
+  border:none;
+  border-radius:50px;
+  background:linear-gradient(135deg,var(--clr-accent),var(--clr-gold));
+  color:var(--clr-bg);
+  cursor:pointer;
+  transition:all var(--duration);
+  box-shadow:0 10px 40px rgba(0,255,247,0.3);
+  position:relative;
+  overflow:hidden;
+}
+#enterButton:disabled{
+  opacity:0.3;
+  cursor:not-allowed;
+  background:#333;
+  box-shadow:none;
+}
+#enterButton:not(:disabled):hover{
+  transform:translateY(-3px);
+  box-shadow:0 20px 60px rgba(0,255,247,0.5);
+}
+
+/* Main Container */
+#appContainer{
+  display:none;
+  min-height:100vh;
+  padding-bottom:4rem;
+}
+
+/* Navbar */
+.navbar{
+  position:fixed;
+  top:0;
+  left:0;
+  right:0;
+  height:80px;
+  background:rgba(8,8,12,0.9);
+  backdrop-filter:blur(20px);
+  border-bottom:1px solid rgba(0,255,247,0.1);
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:0 3rem;
+  z-index:1000;
+}
+.nav-brand{
+  display:flex;
+  align-items:center;
+  gap:1rem;
+}
+.nav-logo{
+  width:45px;
+  height:45px;
+  background:linear-gradient(135deg,var(--clr-accent),var(--clr-gold));
+  border-radius:12px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-family:var(--font-display);
+  font-size:28px;
+  font-weight:900;
+  color:var(--clr-bg);
+  box-shadow:0 0 20px rgba(0,255,247,0.3);
+}
+.nav-title{
+  font-family:var(--font-display);
+  font-size:1.4rem;
+  font-weight:700;
+  background:linear-gradient(90deg,var(--clr-accent),var(--clr-gold));
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+}
+.back-button{
+  padding:0.8rem 1.5rem;
+  border:1px solid var(--clr-accent);
+  background:transparent;
+  color:var(--clr-accent);
+  border-radius:25px;
+  cursor:pointer;
+  font-family:var(--font-body);
+  font-weight:600;
+  transition:all var(--duration);
+  display:flex;
+  align-items:center;
+  gap:0.5rem;
+}
+.back-button:hover{
+  background:var(--clr-accent);
+  color:var(--clr-bg);
+  transform:translateX(-3px);
+}
+
+/* Grid Layout */
+.main-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(350px,1fr));
+  gap:2rem;
+  max-width:1400px;
+  margin:100px auto 0;
+  padding:2rem;
+}
+.menu-card{
+  background:linear-gradient(145deg,rgba(255,255,255,0.03),rgba(255,255,255,0.01));
+  border:1px solid rgba(0,255,247,0.1);
+  border-radius:var(--radius);
+  overflow:hidden;
+  transition:all var(--duration);
+  cursor:pointer;
+  position:relative;
+  backdrop-filter:blur(10px);
+}
+.menu-card::before{
+  content:'';
+  position:absolute;
+  inset:0;
+  background:linear-gradient(135deg,transparent,rgba(0,255,247,0.05),transparent);
+  opacity:0;
+  transition:opacity var(--duration);
+}
+.menu-card:hover{
+  transform:translateY(-10px);
+  border-color:rgba(0,255,247,0.3);
+  box-shadow:0 20px 60px rgba(0,0,0,0.5),0 0 40px rgba(0,255,247,0.1);
+}
+.menu-card:hover::before{
+  opacity:1;
+}
+.card-image{
+  width:100%;
+  height:220px;
+  object-fit:cover;
+  transition:transform var(--duration);
+  border-bottom:1px solid rgba(0,255,247,0.1);
+}
+.menu-card:hover .card-image{
+  transform:scale(1.1);
+}
+.card-content{
+  padding:1.5rem;
+}
+.card-header{
+  display:flex;
+  align-items:center;
+  gap:1rem;
+  margin-bottom:1rem;
+}
+.card-icon{
+  width:45px;
+  height:45px;
+  border-radius:12px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:rgba(0,255,247,0.1);
+  border:1px solid rgba(0,255,247,0.2);
+}
+.card-icon svg{
+  width:24px;
+  height:24px;
+  fill:var(--clr-accent);
+}
+.card-title{
+  font-family:var(--font-display);
+  font-size:1.3rem;
+  color:var(--clr-accent);
+  font-weight:700;
+}
+.card-quote{
+  font-family:var(--font-quote);
+  font-style:italic;
+  color:rgba(255,255,255,0.6);
+  font-size:0.95rem;
+  line-height:1.5;
+  border-left:2px solid var(--clr-gold);
+  padding-left:1rem;
+  margin-top:0.5rem;
+  min-height:60px;
+}
+
+/* Detail Sections */
+.detail-section{
+  display:none;
+  max-width:900px;
+  margin:100px auto 0;
+  padding:2rem;
+  animation:fadeIn 0.6s ease;
+}
+.detail-section.active{
+  display:block;
+}
+@keyframes fadeIn{
+  from{opacity:0;transform:translateY(20px)}
+  to{opacity:1;transform:none}
+}
+.detail-card{
+  background:linear-gradient(145deg,var(--clr-bg-card),rgba(255,255,255,0.02));
+  border:1px solid rgba(0,255,247,0.15);
+  border-radius:var(--radius);
+  padding:3rem;
+  text-align:center;
+  backdrop-filter:blur(20px);
+  box-shadow:0 30px 80px rgba(0,0,0,0.5);
+}
+.detail-header{
+  margin-bottom:2rem;
+}
+.detail-icon{
+  width:80px;
+  height:80px;
+  margin:0 auto 1.5rem;
+  background:linear-gradient(135deg,rgba(0,255,247,0.1),rgba(255,215,0,0.1));
+  border-radius:20px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  border:1px solid rgba(0,255,247,0.2);
+}
+.detail-icon svg{
+  width:40px;
+  height:40px;
+  fill:var(--clr-accent);
+}
+.detail-title{
+  font-family:var(--font-display);
+  font-size:2.5rem;
+  background:linear-gradient(90deg,var(--clr-accent),var(--clr-gold));
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  margin-bottom:0.5rem;
+}
+.detail-link{
+  display:inline-block;
+  padding:1rem 3rem;
+  background:linear-gradient(135deg,var(--clr-accent),var(--clr-gold));
+  color:var(--clr-bg);
+  text-decoration:none;
+  border-radius:50px;
+  font-weight:700;
+  font-size:1.2rem;
+  margin:1.5rem 0;
+  transition:all var(--duration);
+  box-shadow:0 10px 40px rgba(0,255,247,0.3);
+}
+.detail-link:hover{
+  transform:scale(1.05);
+  box-shadow:0 15px 50px rgba(0,255,247,0.5);
+}
+.detail-image{
+  width:100%;
+  max-width:400px;
+  border-radius:var(--radius);
+  margin:2rem 0;
+  box-shadow:0 20px 60px rgba(0,0,0,0.4);
+  border:2px solid rgba(0,255,247,0.2);
+}
+.detail-quote{
+  font-family:var(--font-quote);
+  font-size:1.4rem;
+  color:var(--clr-gold);
+  font-style:italic;
+  margin-top:2rem;
+  padding:1.5rem;
+  border-top:1px solid rgba(255,215,0,0.2);
+  border-bottom:1px solid rgba(255,215,0,0.2);
+}
+.author{
+  display:block;
+  margin-top:1rem;
+  font-size:0.9rem;
+  color:rgba(255,255,255,0.5);
+  font-style:normal;
+  font-family:var(--font-body);
+}
+
+/* QR Section */
+.qr-container{
+  margin-top:2rem;
+  padding:1.5rem;
+  background:white;
+  border-radius:var(--radius);
+  display:inline-block;
+  box-shadow:0 10px 40px rgba(0,0,0,0.3);
+}
+
+/* Responsive */
+@media(max-width:768px){
+  .navbar{padding:0 1.5rem}
+  .main-grid{grid-template-columns:1fr;padding:1rem;margin-top:90px}
+  .detail-card{padding:2rem 1.5rem}
+  .detail-title{font-size:1.8rem}
+}
+</style>
+</head>
+<body>
+
+<div class="bg-gradient"></div>
+<div class="particles" id="particles"></div>
+
+<!-- Intro -->
+<div id="introScreen">
+  <div class="logo-big">M</div>
+  <h1 id="animatedTitle">Morning Starr Morgan</h1>
+  <div class="language-selector">
+    <select id="languageSelect">
+      <option value="">🌍 Choisir la langue</option>
+      <option value="fr">🇫🇷 Français</option>
+      <option value="ln">🇨🇩 Lingala</option>
+    </select>
+    <button id="enterButton" disabled>Entrer</button>
+  </div>
+</div>
+
+<!-- App -->
+<div id="appContainer">
+  <nav class="navbar">
+    <div class="nav-brand">
+      <div class="nav-logo">M</div>
+      <span class="nav-title">Morning Starr</span>
+    </div>
+    <button class="back-button" id="backButton" style="display:none">← Retour</button>
+  </nav>
+
+  <!-- Main Grid -->
+  <div class="main-grid" id="mainGrid">
+    
+    <!-- Instagram Card -->
+    <div class="menu-card" data-menu="instagram">
+      <img src="/mnt/kimi/upload/cool(1).png" alt="Instagram" class="card-image">
+      <div class="card-content">
+        <div class="card-header">
+          <div class="card-icon">
+            <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+          </div>
+          <h3 class="card-title">Instagram</h3>
+        </div>
+        <p class="card-quote" data-quotes="instagram"></p>
+      </div>
+    </div>
+
+    <!-- YouTube Card -->
+    <div class="menu-card" data-menu="youtube">
+      <img src="/mnt/kimi/upload/Gemini_Generated_Image_718nc2718nc2718n.png" alt="YouTube" class="card-image">
+      <div class="card-content">
+        <div class="card-header">
+          <div class="card-icon">
+            <svg viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+          </div>
+          <h3 class="card-title">YouTube</h3>
+        </div>
+        <p class="card-quote" data-quotes="youtube"></p>
+      </div>
+    </div>
+
+    <!-- X/Twitter Card -->
+    <div class="menu-card" data-menu="x">
+      <img src="/mnt/kimi/upload/Gemini_Generated_Image_ab24ggab24ggab24.png" alt="X" class="card-image">
+      <div class="card-content">
+        <div class="card-header">
+          <div class="card-icon">
+            <svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+          </div>
+          <h3 class="card-title">X (Twitter)</h3>
+        </div>
+        <p class="card-quote" data-quotes="x"></p>
+      </div>
+    </div>
+
+    <!-- Facebook Card -->
+    <div class="menu-card" data-menu="facebook">
+      <img src="/mnt/kimi/upload/Gemini_Generated_Image_iug4x0iug4x0iug4.png" alt="Facebook" class="card-image">
+      <div class="card-content">
+        <div class="card-header">
+          <div class="card-icon">
+            <svg viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+          </div>
+          <h3 class="card-title">Facebook</h3>
+        </div>
+        <p class="card-quote" data-quotes="facebook"></p>
+      </div>
+    </div>
+
+    <!-- TikTok Card -->
+    <div class="menu-card" data-menu="tiktok">
+      <img src="/mnt/kimi/upload/Gemini_Generated_Image_ak6ajpak6ajpak6a.png" alt="TikTok" class="card-image">
+      <div class="card-content">
+        <div class="card-header">
+          <div class="card-icon">
+            <svg viewBox="0 0 24 24"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/></svg>
+          </div>
+          <h3 class="card-title">TikTok</h3>
+        </div>
+        <p class="card-quote" data-quotes="tiktok"></p>
+      </div>
+    </div>
+
+    <!-- Contact Card -->
+    <div class="menu-card" data-menu="contact">
+      <img src="/mnt/kimi/upload/cool.png" alt="Contact" class="card-image">
+      <div class="card-content">
+        <div class="card-header">
+          <div class="card-icon">
+            <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+          </div>
+          <h3 class="card-title">Contact</h3>
+        </div>
+        <p class="card-quote" data-quotes="contact"></p>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Detail Sections -->
+  <div class="detail-section" id="detail-instagram">
+    <div class="detail-card">
+      <div class="detail-icon">
+        <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+      </div>
+      <h2 class="detail-title">Instagram</h2>
+      <img src="/mnt/kimi/upload/cool(1).png" alt="Profile" class="detail-image">
+      <a href="https://instagram.com/kama.ko69" target="_blank" class="detail-link">@kama.ko69</a>
+      <div class="qr-container" id="qrInsta"></div>
+      <p class="detail-quote" id="quote-insta"></p>
+    </div>
+  </div>
+
+  <div class="detail-section" id="detail-youtube">
+    <div class="detail-card">
+      <div class="detail-icon">
+        <svg viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+      </div>
+      <h2 class="detail-title">YouTube</h2>
+      <img src="/mnt/kimi/upload/Gemini_Generated_Image_718nc2718nc2718n.png" alt="YouTube" class="detail-image">
+      <a href="https://youtube.com/@JohnnyMorgan-rs7xe" target="_blank" class="detail-link">Voir la chaîne</a>
+      <p class="detail-quote" id="quote-youtube"></p>
+    </div>
+  </div>
+
+  <div class="detail-section" id="detail-x">
+    <div class="detail-card">
+      <div class="detail-icon">
+        <svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+      </div>
+      <h2 class="detail-title">X</h2>
+      <img src="/mnt/kimi/upload/Gemini_Generated_Image_ab24ggab24ggab24.png" alt="X" class="detail-image">
+      <a href="https://x.com/morgunshted9" target="_blank" class="detail-link">@morgunshted9</a>
+      <p class="detail-quote" id="quote-x"></p>
+    </div>
+  </div>
+
+  <div class="detail-section" id="detail-facebook">
+    <div class="detail-card">
+      <div class="detail-icon">
+        <svg viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+      </div>
+      <h2 class="detail-title">Facebook</h2>
+      <img src="/mnt/kimi/upload/Gemini_Generated_Image_iug4x0iug4x0iug4.png" alt="Facebook" class="detail-image">
+      <a href="https://facebook.com/morgan.mornigstarr" target="_blank" class="detail-link">Morgan Morningstarr</a>
+      <p class="detail-quote" id="quote-facebook"></p>
+    </div>
+  </div>
+
+  <div class="detail-section" id="detail-tiktok">
+    <div class="detail-card">
+      <div class="detail-icon">
+        <svg viewBox="0 0 24 24"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/></svg>
+      </div>
+      <h2 class="detail-title">TikTok</h2>
+      <img src="/mnt/kimi/upload/Gemini_Generated_Image_ak6ajpak6ajpak6a.png" alt="TikTok" class="detail-image">
+      <a href="https://tiktok.com/@morningstarr" target="_blank" class="detail-link">@morningstarr</a>
+      <p class="detail-quote" id="quote-tiktok"></p>
+    </div>
+  </div>
+
+  <div class="detail-section" id="detail-contact">
+    <div class="detail-card">
+      <div class="detail-icon">
+        <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+      </div>
+      <h2 class="detail-title">Contact</h2>
+      <img src="/mnt/kimi/upload/cool.png" alt="Contact" class="detail-image">
+      <a href="mailto:kkamako69@gmail.com" class="detail-link">kkamako69@gmail.com</a>
+      <br><br>
+      <a href="tel:+242055474614" class="detail-link" style="background:linear-gradient(135deg,var(--clr-rose),var(--clr-gold))">+242 05 547 46 14</a>
+      <p class="detail-quote" id="quote-contact"></p>
+    </div>
+  </div>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js"></script>
+<script>
+// Citations philosophiques et émotionnelles par catégorie
+const quotesDB={
+  instagram:[
+    {text:"La vie est un mystère qu'il faut vivre, et non un problème à résoudre.",author:"Gandhi"},
+    {text:"On ne voit bien qu'avec le cœur. L'essentiel est invisible pour les yeux.",author:"Saint-Exupéry"},
+    {text:"Donner, c'est donner ; reprendre, c'est voler.",author:"Proverbe africain"},
+    {text:"La beauté commence au moment où vous décidez d'être vous-même.",author:"Coco Chanel"},
+    {text:"La vie est comme une boîte de chocolats, on ne sait jamais sur quoi on va tomber.",author:"Forrest Gump"}
+  ],
+  youtube:[
+    {text:"Quand la pauvreté entre par la porte, l'amour s'en va par la fenêtre.",author:"Proverbe congolais"},
+    {text:"Le succès n'est pas final, l'échec n'est pas fatal : c'est le courage de continuer qui compte.",author:"Churchill"},
+    {text:"La musique exprime ce qui ne peut être dit et sur quoi il est impossible de rester silencieux.",author:"Victor Hugo"},
+    {text:"Le seul impossible est celui que l'on n'essaie pas.",author:"Alexandre le Grand"},
+    {text:"La vie sans musique serait une erreur.",author:"Nietzsche"}
+  ],
+  x:[
+    {text:"Ne remets pas au lendemain ce que tu peux faire le jour même.",author:"Benjamin Franklin"},
+    {text:"Le monde appartient à ceux qui se lèvent tôt.",author:"Proverbe"},
+    {text:"La liberté n'a pas de prix.",author:"Bob Marley"},
+    {text:"Pensez comme un homme d'action, agissez comme un homme de pensée.",author:"Henry Bergson"},
+    {text:"Le silence des gens qu'on aime est plus terrible que la colère.",author:"Proverbe"}
+  ],
+  facebook:[
+    {text:"Il n'est pire aveugle que celui qui ne veut pas voir.",author:"Proverbe"},
+    {text:"L'amitié est un âme en deux corps.",author:"Aristote"},
+    {text:"La famille est le premier cadeau que la vie nous offre.",author:"Inconnu"},
+    {text:"Un ami est une âme qui réside dans deux corps.",author:"Aristote"},
+    {text:"Les liens du sang sont les plus forts.",author:"Proverbe"}
+  ],
+  tiktok:[
+    {text:"La danse est la poésie du mouvement.",author:"Inconnu"},
+    {text:"La jeunesse est le temps d'étudier la sagesse, la vieillesse est le temps de la pratiquer.",author:"Rousseau"},
+    {text:"Riez et le monde rira avec vous.",author:"Ella Wheeler Wilcox"},
+    {text:"La créativité, c'est l'intelligence qui s'amuse.",author:"Einstein"},
+    {text:"La vie est une fête, habille-toi pour ça.",author:"Audrey Hepburn"}
+  ],
+  contact:[
+    {text:"On sait bien quand on part, mais jamais quand on revient.",author:"Proverbe africain"},
+    {text:"Argent fait beaucoup mais amour fait tout.",author:"Proverbe congolais"},
+    {text:"Un seul être vous manque et tout est dépeuplé.",author:"Lamartine"},
+    {text:"Le plus grand voyage est le voyage intérieur.",author:"Proverbe"},
+    {text:"La patience est l'art d'espérer.",author:"Vauvenargues"}
+  ]
+};
+
+// Fonction pour obtenir une citation aléatoire
+function getRandomQuote(category){
+  const quotes=quotesDB[category]||quotesDB.contact;
+  return quotes[Math.floor(Math.random()*quotes.length)];
+}
+
+// Injecter les citations aléatoires
+function injectQuotes(){
+  document.querySelectorAll('[data-quotes]').forEach(el=>{
+    const category=el.getAttribute('data-quotes');
+    const quote=getRandomQuote(category);
+    el.textContent=`"${quote.text}" — ${quote.author}`;
+  });
+  
+  // Injecter dans les sections détail
+  Object.keys(quotesDB).forEach(key=>{
+    const el=document.getElementById(`quote-${key}`);
+    if(el){
+      const quote=getRandomQuote(key);
+      el.innerHTML=`"${quote.text}"<span class="author">— ${quote.author}</span>`;
+    }
+  });
+}
+
+// Particules d'arrière-plan
+function createParticles(){
+  const container=document.getElementById('particles');
+  for(let i=0;i<40;i++){
+    const p=document.createElement('div');
+    p.className='particle';
+    p.style.left=Math.random()*100+'%';
+    p.style.animationDelay=Math.random()*20+'s';
+    p.style.animationDuration=(15+Math.random()*10)+'s';
+    container.appendChild(p);
+  }
+}
+
+// Navigation
+const langSel=document.getElementById('languageSelect');
+const enterBtn=document.getElementById('enterButton');
+const introScreen=document.getElementById('introScreen');
+const app=document.getElementById('appContainer');
+const backBtn=document.getElementById('backButton');
+const mainGrid=document.getElementById('mainGrid');
+
+langSel.addEventListener('change',()=>{
+  enterBtn.disabled=!langSel.value;
+  if(langSel.value==='ln'){
+    enterBtn.textContent='Kota';
+  }else if(langSel.value==='fr'){
+    enterBtn.textContent='Entrer';
+  }
+});
+
+enterBtn.addEventListener('click',()=>{
+  localStorage.setItem('lang',langSel.value);
+  introScreen.style.opacity='0';
+  setTimeout(()=>{
+    introScreen.style.display='none';
+    app.style.display='block';
+    injectQuotes();
+  },500);
+});
+
+if(localStorage.getItem('lang')){
+  introScreen.style.display='none';
+  app.style.display='block';
+  createParticles();
+  injectQuotes();
+  
+  // QR Code
+  QRCode.toCanvas(document.getElementById('qrInsta'),'https://instagram.com/kama.ko69',{
+    width:150,
+    margin:1,
+    color:{dark:'#000',light:'#fff'}
+  });
+}
+
+// Menu interactions
+document.querySelectorAll('.menu-card').forEach(card=>{
+  card.addEventListener('click',()=>{
+    const menu=card.getAttribute('data-menu');
+    document.querySelectorAll('.detail-section').forEach(s=>{
+      s.classList.toggle('active',s.id===`detail-${menu}`);
+    });
+    mainGrid.style.display='none';
+    backBtn.style.display='flex';
+    window.scrollTo(0,0);
+  });
+});
+
+backBtn.addEventListener('click',()=>{
+  document.querySelectorAll('.detail-section').forEach(s=>s.classList.remove('active'));
+  mainGrid.style.display='grid';
+  backBtn.style.display='none';
+  injectQuotes(); // Changer les citations à chaque retour
+});
+</script>
+</body>
+</html>
