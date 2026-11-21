@@ -25,3 +25,7 @@ python tools/check_site.py
 ```
 
 GitHub Actions lance aussi ce contrôle à chaque modification de la branche `main` et pour chaque pull request. Les avertissements (par exemple un fragment HTML ou une ressource locale introuvable) doivent être examinés ; un passage réussi ne remplace pas les tests dans un vrai navigateur.
+
+## Rôle de ce dépôt
+
+Cette version est conservée comme copie alternative. La balise canonical pointe vers le site principal [Morning_Starr-pro](https://kkamako69-source.github.io/Morning_Starr-pro/). Effectue les mises à jour sur le dépôt principal pour éviter de maintenir deux versions en parallèle.
