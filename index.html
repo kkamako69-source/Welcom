@@ -965,6 +965,7 @@
             } else {
                 detailLink.style.display = 'block';
                 detailLink.href = item.url;
+                detailLink.rel = 'noopener noreferrer';
                 detailLink.textContent = item.id === 'contact' ? 'CONTACTER' : 'VISITER';
 
                 qrContainer.innerHTML = '';
