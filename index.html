@@ -519,7 +519,21 @@
             .voice-btn { width: 50px; height: 50px; font-size: 1.2rem; bottom: 20px; right: 20px; }
         }
     </style>
-<base target="_blank">
+
+<style id="accessibility-enhancements">
+:where(a,button,input,select,textarea,[tabindex]):focus-visible {
+  outline: 3px solid #00fff7 !important;
+  outline-offset: 3px;
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    scroll-behavior: auto !important;
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .01ms !important;
+  }
+}
+</style>
 </head>
 <body>
     <div class="bg-gradient"></div>
@@ -598,8 +612,8 @@
 
                 <div id="locationSection" style="display:none; margin-top: 3rem;">
                     <h3 style="font-family: var(--font-display); color: var(--clr-rose); text-align: center; margin-bottom: 1rem; font-size: 1.5rem;">MA POSITION</h3>
-                    <img src="https://media.gettyimages.com/id/1716956111/video/zoom-in-on-monochrome-map-of-democratic-republic-of-congo-4k-high-quality-dark-theme-simple.jpg?s=640x640&k=20&c=m4g-qUYxQXbkrQDar8WiPezfLnWrJiJesSv0Eg9qEMs=" alt="RDC" class="location-map">
-                    <p style="text-align: center; color: rgba(255,255,255,0.7); margin: 1rem 0;">Republique Democratique du Congo - Brazzaville</p>
+                    <img src="assets/congo-flag.svg" alt="Drapeau de la République du Congo" class="location-map" loading="lazy">
+                    <p style="text-align: center; color: rgba(255,255,255,0.7); margin: 1rem 0;">République du Congo — Brazzaville et Pointe-Noire</p>
                     <h3 style="font-family: var(--font-display); color: var(--clr-gold); text-align: center; margin: 2rem 0 1rem; font-size: 1.2rem;">PAYS VOISINS & REGION</h3>
                     <div class="country-grid" id="countryGrid"></div>
                 </div>
@@ -641,7 +655,7 @@
             { id: 'youtube', title: 'YouTube', url: 'https://youtube.com/@JohnnyMorgan-rs7xe', img: 'https://www.edigitalagency.com.au/wp-content/uploads/new-YouTube-logo-png.png', quote: "La musique exprime ce qui ne peut etre dit.", author: "Victor Hugo" },
             { id: 'x', title: 'X (Twitter)', url: 'https://x.com/morgunshted9', img: 'https://img.freepik.com/free-vector/new-twitter-logo-x-icon-black-background_1017-45427.jpg', quote: "La liberte n'a pas de prix.", author: "Bob Marley" },
             { id: 'facebook', title: 'Facebook', url: 'https://facebook.com/morgan.mornigstarr', img: 'https://www.edigitalagency.com.au/wp-content/uploads/new-Facebook-logo-blue-png.png', quote: "L'amitie est une ame en deux corps.", author: "Aristote" },
-            { id: 'tiktok', title: 'TikTok', url: 'https://tiktok.com/@morningstarr', img: 'https://www.edigitalagency.com.au/wp-content/uploads/TikTok-logo-on-smooth-edges-black-square.png', quote: "La creativite, c'est l'intelligence qui s'amuse.", author: "Einstein" },
+            { id: 'tiktok', title: 'TikTok', url: 'https://www.tiktok.com/@bigmorning_starr', img: 'https://www.edigitalagency.com.au/wp-content/uploads/TikTok-logo-on-smooth-edges-black-square.png', quote: "La creativite, c'est l'intelligence qui s'amuse.", author: "Einstein" },
             { id: 'contact', title: 'Contact', url: 'mailto:kkamako69@gmail.com', img: 'https://static.vecteezy.com/system/resources/thumbnails/029/588/611/small/business-contact-us-icon-set-rounded-square-button-style-vector.jpg', quote: "Ecrivez l'histoire que vous voulez lire.", author: "Proverbe" }
         ];
 
@@ -653,7 +667,7 @@
         ];
 
         const locData = [
-            { id: 'rdc', title: 'RDC - Mon Pays', img: 'https://media.gettyimages.com/id/1716956111/video/zoom-in-on-monochrome-map-of-democratic-republic-of-congo-4k-high-quality-dark-theme-simple.jpg?s=640x640&k=20&c=m4g-qUYxQXbkrQDar8WiPezfLnWrJiJesSv0Eg9qEMs=', quote: "Le Congo, coeur battant de l'Afrique.", author: "Patrice Lumumba", desc: "Brazzaville, Kinshasa, le fleuve Congo, la foret tropicale." },
+            { id: 'congo', title: 'Congo-Brazzaville', img: 'assets/congo-flag.svg', quote: "Le Congo, une terre de créativité, de culture et d'avenir.", author: "Morning Starr", desc: "Brazzaville, Pointe-Noire, le fleuve Congo et la forêt du bassin du Congo." },
             { id: 'africa', title: 'Afrique Centrale', img: 'https://images.unsplash.com/photo-1523805009345-7448845a9e53?w=500', quote: "L'Afrique est le berceau de l'humanite.", author: "Proverbe", desc: "Cameroun, Gabon, RCA, Angola, Rwanda, Burundi - nos freres voisins." }
         ];
 
@@ -764,7 +778,7 @@
                 }
 
                 if (locSection.style.display === 'block') {
-                    textToRead += '. Localisation. Republique Democratique du Congo. Pays voisins: ';
+                    textToRead += '. Localisation. République du Congo. Villes : Brazzaville et Pointe-Noire. Pays voisins : ';
                     document.querySelectorAll('.country-card').forEach(card => {
                         textToRead += card.textContent + '. ';
                     });
