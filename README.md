@@ -14,7 +14,7 @@ Avant de modifier cette copie, déterminer si elle est une maquette, une sauvega
 ## Vérification
 Ouvre `index.html` dans un navigateur, teste les liens et interactions, puis contrôle le rendu mobile avant toute publication.
 
-> État documenté : version à comparer avec le dépôt principal ; son rôle exact reste à confirmer.
+> État documenté au 24 novembre 2026 : copie alternative et non canonique. Les corrections géographiques et de liens sociaux y sont maintenues pour éviter d'afficher des informations trompeuses, mais les nouvelles évolutions doivent être réalisées dans le dépôt principal.
 
 ## Contrôle automatique
 
@@ -29,3 +29,7 @@ GitHub Actions lance aussi ce contrôle à chaque modification de la branche `ma
 ## Rôle de ce dépôt
 
 Cette version est conservée comme copie alternative. La balise canonical pointe vers le site principal [Morning_Starr-pro](https://kkamako69-source.github.io/Morning_Starr-pro/). Effectue les mises à jour sur le dépôt principal pour éviter de maintenir deux versions en parallèle.
+
+## Sécurité et qualité
+
+Les contrôles HTML/JavaScript et CodeQL s'exécutent via GitHub Actions. Dependabot surveille les actions GitHub chaque semaine. La page reste une copie alternative ; la source éditoriale officielle est `Morning_Starr-pro`.
